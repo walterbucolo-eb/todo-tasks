@@ -1,0 +1,40 @@
+{# Load the tag library #}
+{% load bootstrap3 %} 
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+<head>
+<style>
+form.ex1 {
+  margin: 35px;
+  margin-top: 25px;
+}
+</style>
+</head>
+
+{% block content %}
+  <br><br>
+  <div class="jumbotron">
+    <div class = "container">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-3"></div>
+          <div class="col col-lg-3">
+            <h3>Task</h3>
+            <form class = "form ex1" method="post">
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              {% buttons %}
+                    <button type="submit" class="btn btn-primary">
+                        {% bootstrap_icon "star" %} Create
+                    </button>
+                {% endbuttons %}
+              {% comment %} {{form.as_p}} {% endcomment %}
+              {% comment %} <button type="submit" value="Submit">Create</button> {% endcomment %}
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>  
+{% endblock %} 

@@ -1,0 +1,63 @@
+{# Load the tag library #}
+{% load bootstrap3 %} 
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
+<head>
+<style>
+h3.a {
+  text-align: center;
+  text-decoration: underline;
+}
+p.ex1 {
+  margin: 35px;
+}
+table.ex1 {
+  margin: 35px;
+}
+</style>
+</head>
+{% block content %}
+  {% comment %} <h3 class="a">Your tasks {{user[]}</h3> {% endcomment %}
+  <h3 class="a">Your tasks</h3>
+   <table class = "ex1">
+       <tr>
+            <th scope="col">#</th>
+            <th scope="col">Task</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Date</th>
+            <th scope="col">Done</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+       </tr>
+   {% for task in list_tasks %}
+       <tr>
+           <td>{{task.id}}</td>
+           <td>{{task.name}}</td>
+           <td>{{task.priority}}</td>
+           <td>{{task.date_task}}</td>
+           <td>{% if task.done == False %}
+           Not done
+           {% else %}
+           Done
+           {% endif %}</td>
+           <td><a href="{% url 'event-task-update' task.id %}">
+                <button type="submit" name="_submit" class="btn">Update</button>
+           </td>
+            <td><a href="{% url 'event-task-delete' task.id %}">
+                <button type="submit" name="_submit" class="btn">Delete</button>
+           </td>
+       </tr>
+   {% endfor %}
+   </table>
+   <br>
+
+
+  
+{% endblock %}

@@ -1,0 +1,58 @@
+{# Load the tag library #}
+{% load bootstrap3 %} 
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+<style>
+.i-am-centered { margin: auto; max-width: 300px; font-family: sans-serif}
+.eventbrite {font-family: sans-serif; font-size: 14px;}
+.title {font-family: sans-serif; font-size: 30px;}
+.left { position:absolute; top:60px; right:140px}
+.right { position:absolute; top:65px; left:140px; }
+.color {background-color:#39364f; color:white; }
+{% comment %} rgb[57, 54, 59] {% endcomment %}
+</style>
+<br><br>
+<div class="container">
+    <div class="row color">
+    <br>
+        <div class="right">
+            <p>eventbrite</p>
+        </div>
+        <div class="col-8">
+             <p class="i-am-centered title">Events</p>
+        </div>
+        <div class="col-2">
+            <div class="left button">
+                <a class="btn btn-default" href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    <br>
+    </div>
+    <div class="row">
+        <table class="table table-hover">
+            <thead class="black white-text">
+                <tr>
+                    <th class="i-am-centered">Name</th>
+                    <th class="i-am-centered">Description</th>
+                    <th class="i-am-centered">Start</th>
+                    <th class="i-am-centered">End</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in list_events %}
+                    <tr>    
+                        <td><a href="{% url 'task-list' event.id %}">{{event.name.text}}</td>
+                        <td><a href="{% url 'task-list' event.id %}">{{event.description.text}}</td>
+                        <td><a href="{% url 'task-list' event.id %}">{{event.start.local}}</td>
+                        <td><a href="{% url 'task-list' event.id %}">{{event.end.local}}</td>
+                        {% comment %} <td><a href="{% url 'task-list' event.id %}">Tasks</td> {% endcomment %}
+                            {% comment %} <td><a href="{% url 'event-task-create' event.id %}"></td> {% endcomment %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

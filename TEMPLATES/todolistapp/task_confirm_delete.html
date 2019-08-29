@@ -1,0 +1,12 @@
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
+
+<form method="post">{% csrf_token %}
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">Are you sure you want to delete "{{ object.name }}" task?</th>
+            <th><button type="submit" name="_submit" class="btn">Confirm</button></th>
+        </thead>
+</form>
