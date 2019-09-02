@@ -21,11 +21,32 @@ p.ex1 {
 table.ex1 {
   margin: 35px;
 }
+.i-am-centered { margin: auto; max-width: 300px; font-family: sans-serif}
+.eventbrite {font-family: sans-serif; font-size: 14px;}
+.title {font-family: sans-serif; font-size: 30px;}
+.left { position:absolute; top:25px; right:90px}
+.right { position:absolute; top:30px; left:90px; }
+.color {background-color:#39364f; color:white; }
 </style>
 </head>
 {% block content %}
   {% comment %} <h3 class="a">Your tasks {{user[]}</h3> {% endcomment %}
-  <h3 class="a">Your tasks</h3>
+  {% comment %} <h3 class="a">Your tasks</h3> {% endcomment %}
+  <div class="row color">
+    <br>
+        <div class="right">
+            <p>eventbrite</p>
+        </div>
+        <div class="col-8">
+            <p class="i-am-centered title">Tasks</p>
+        </div>
+        <div class="col-2">
+            <div class="left button">
+                <a class="btn btn-default" href="{% url 'event-list' %}">Back to events</a>
+            </div>
+        </div>
+    <br>
+    </div>
    <table class = "ex1">
        <tr>
             <th scope="col">#</th>
@@ -47,15 +68,17 @@ table.ex1 {
            {% else %}
            Done
            {% endif %}</td>
-           <td><a href="{% url 'event-task-update' task.id %}">
+           <td><a href="{% url 'event-task-update' event_id task.id %}">
                 <button type="submit" name="_submit" class="btn">Update</button>
            </td>
-            <td><a href="{% url 'event-task-delete' task.id %}">
+            <td><a href="{% url 'event-task-delete' event_id task.id %}">
                 <button type="submit" name="_submit" class="btn">Delete</button>
            </td>
        </tr>
    {% endfor %}
    </table>
+   
+    <a class="btn btn-default" href="{% url 'event-task-create' event_id %}">Create</a> 
    <br>
 
 

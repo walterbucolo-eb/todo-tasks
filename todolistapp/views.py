@@ -8,10 +8,10 @@ from .models import Task
 from django.urls import (
     reverse_lazy
 )
+from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from eventbrite import Eventbrite
-
 
 class TaskLogin(LoginView):
     pass
@@ -27,6 +27,8 @@ class TaskList(TemplateView, LoginRequiredMixin):
     def get_context_data(self, **kwargs):
         content_data = super(TaskList, self).get_context_data(**kwargs)
         content_data['list_tasks'] = Task.objects.filter(event=self.kwargs['event_id'])
+        event_id = self.kwargs['event_id']
+        # import ipdb ; ipdb.set_trace()
         return content_data
 
 
@@ -48,29 +50,46 @@ class EventTask(TemplateView):
 
 class TaskCreate(CreateView):
     model = Task
-    fields = ['name', 'priority']
-    success_url = reverse_lazy('event-list')
+    fields = ['name', 'priority', 'date_task']
 
-    def form_valid(self, form):
+    def get_success_url(self):
+        return reverse_lazy('task-list', kwargs=self.kwargs)
+
+    def form_valid(self, form, **kwargs):
         form.instance.user = self.request.user
         form.instance.event = self.kwargs['event_id']
         self.object = form.save()
         return super(TaskCreate, self).form_valid(form)
 
+# def check_task(self, request, pk):
+#     task = Task.objects.get(pk=pk)
+#     if not task.done:
+#         task.done = True
+#     task.save()
+#     return redirect('task-list')
 
 class TaskUpdate(UpdateView):
     model = Task
     fields = ['name', 'done', 'priority']
-    success_url = reverse_lazy('event-list')
+
+    def get_success_url(self):
+        return reverse_lazy('task-list', kwargs={'event_id': self.kwargs['event_id']})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs['pk']
+        return context
 
 
 class TaskDelete(DeleteView):
     model = Task
-    success_url = reverse_lazy('event-list')
+    success_url = reverse_lazy('task-list')
 
+    def get_success_url(self):
+        return reverse_lazy('task-list', kwargs={'event_id': self.kwargs['event_id']})
 
-# def get_token(user):
-#     token = user.social_auth.get(
-#         provider='eventbrite'
-#     ).access_token
-#     return token
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs['pk']
+        return context
+
