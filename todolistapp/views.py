@@ -29,7 +29,6 @@ class TaskList(TemplateView, LoginRequiredMixin):
         content_data = super(TaskList, self).get_context_data(**kwargs)
         content_data['list_tasks'] = Task.objects.filter(event=self.kwargs['event_id'])
         event_id = self.kwargs['event_id']
-        # import ipdb ; ipdb.set_trace()
         return content_data
 
 
@@ -41,7 +40,6 @@ class EventTask(TemplateView):
         token = social.access_token
         eventbrite = Eventbrite(token)
         list_events = eventbrite.get('/users/me/events/')['events']
-        import ipdb ; ipdb.set_trace()
         return list_events
 
     def get_context_data(self):
@@ -61,7 +59,6 @@ class TaskCreate(CreateView):
         form.instance.user = self.request.user
         form.instance.event = self.kwargs['event_id']
         self.object = form.save()
-        import ipdb ; ipdb.set_trace()
         return super(TaskCreate, self).form_valid(form)
 
 # def check_task(self, request, pk):
