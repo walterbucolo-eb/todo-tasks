@@ -41,7 +41,9 @@ SECRET_KEY = 'gc98rbg5v6r%wd$c*dc1%lu096^+^%4x&ucz#c^hn1$q*c*6%e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'immense-inlet-24419.herokuapp.com'
+]
 
 
 # Application definition
