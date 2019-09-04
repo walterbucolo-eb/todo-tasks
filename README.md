@@ -1,4 +1,4 @@
 # todo-tasks
 Task list of event for organizers
 
-https://travis-ci.com/walterbucolo-eb/todo-tasks.svg?branch=master
+[![Build Status](https://travis-ci.com/walterbucolo-eb/todo-tasks.svg?branch=master)](https://travis-ci.com/walterbucolo-eb/todo-tasks)
