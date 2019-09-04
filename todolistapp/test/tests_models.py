@@ -26,7 +26,6 @@ class PriorityTestCase(TestCase):
 class TaskTestCase(TestCase):
     def setUp(self):
         self.priority = Priority.objects.create(priority='URGENT')
-        # import ipdb; ipdb.set_trace()
         date = datetime(year=2018, month=7, day=12, hour=7, minute=9, second=33)
         user_test = User.objects.create_user('test', password='Test1')
         user_test.is_superuser = True

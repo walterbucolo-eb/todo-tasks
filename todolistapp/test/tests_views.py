@@ -43,7 +43,7 @@ class LoginTestCase(TestCase):
         URL = "/events/{}/tasks/create/".format('68602296315')
         data = {'name': 'task', 'priority': priority, 'date_task': date}
         response = c.post(URL, data)
-        import ipdb ; ipdb.set_trace()
+        self.assertEqual(200, response.status_code)
 
 
 
