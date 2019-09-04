@@ -7,7 +7,7 @@ install: # => 4
   - pip install -r requirements.txt
   - pip install coveralls
 script: # => 5
-  - python manage.py test
+  #- python manage.py test
   - coverage run --source=moscowdjango,meetup manage.py test
 after_script: # => 6
   - coveralls
