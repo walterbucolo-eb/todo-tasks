@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn djangoherokuapp.wsgi --log-file -
+web: gunicorn immense-inlet-24419.wsgi --log-file -
