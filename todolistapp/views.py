@@ -13,6 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from eventbrite import Eventbrite
 
+
 class TaskLogin(LoginView):
     pass
 
@@ -40,6 +41,7 @@ class EventTask(TemplateView):
         token = social.access_token
         eventbrite = Eventbrite(token)
         list_events = eventbrite.get('/users/me/events/')['events']
+        import ipdb ; ipdb.set_trace()
         return list_events
 
     def get_context_data(self):
@@ -59,6 +61,7 @@ class TaskCreate(CreateView):
         form.instance.user = self.request.user
         form.instance.event = self.kwargs['event_id']
         self.object = form.save()
+        import ipdb ; ipdb.set_trace()
         return super(TaskCreate, self).form_valid(form)
 
 # def check_task(self, request, pk):
@@ -67,6 +70,7 @@ class TaskCreate(CreateView):
 #         task.done = True
 #     task.save()
 #     return redirect('task-list')
+
 
 class TaskUpdate(UpdateView):
     model = Task
@@ -92,4 +96,3 @@ class TaskDelete(DeleteView):
         context = super().get_context_data(**kwargs)
         context['pk'] = self.kwargs['pk']
         return context
-
