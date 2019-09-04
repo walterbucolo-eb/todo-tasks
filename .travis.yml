@@ -6,6 +6,7 @@ env: # => 3
 install: # => 4
   - pip install -r requirements.txt
 script: # => 5
-  - python manage.py test
+  - coverage run manage.py test -v 2
+  - coverage report -m
 
 
