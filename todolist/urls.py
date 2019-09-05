@@ -3,6 +3,7 @@ from django.contrib import admin
 from todolistapp.views import TaskLogin, TaskLogout
 
 urlpatterns = [
+    url('', TaskLogin.as_view(), name='login'),
     url(r'^account/login/$', TaskLogin.as_view(), name='login'),
     url(r'^account/$', TaskLogout.as_view(), name='logout'),
     url(r'^admin/', admin.site.urls),
