@@ -5,8 +5,10 @@ env: # => 3
   - DJANGO=1.11
 install: # => 4
   - pip install -r requirements.txt
+  - pip install coveralls
 script: # => 5
-  - coverage run manage.py test -v 2
-  - coverage report -m
-
+  #- python manage.py test
+  - coverage run --source='.' manage.py test
+after_script: # => 6
+  - coveralls
 
