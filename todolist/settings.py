@@ -42,7 +42,8 @@ SECRET_KEY = 'gc98rbg5v6r%wd$c*dc1%lu096^+^%4x&ucz#c^hn1$q*c*6%e'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'immense-inlet-24419.herokuapp.com'
+    'immense-inlet-24419.herokuapp.com',
+    '127.0.0.1'
 ]
 
 

@@ -9,6 +9,7 @@ from .models import Task
 from django.urls import (
     reverse_lazy
 )
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
@@ -19,8 +20,8 @@ class TaskLogin(LoginView):
     pass
 
 
-class TaskLogout(LogoutView):
-    template = '../TEMPLATES/registration/logout.html'
+# class TaskLogout(LogoutView):
+#     template = '../TEMPLATES/registration/logout.html'
 
 
 class TaskList(TemplateView, LoginRequiredMixin):
@@ -36,13 +37,20 @@ class TaskList(TemplateView, LoginRequiredMixin):
 class EventTask(TemplateView):
     template_name = "event.html"
 
+    # @login_required
     def get_events(self):
-        social = self.request.user.social_auth.all()[0]
-        token = social.access_token
-        eventbrite = Eventbrite(token)
-        list_events = eventbrite.get('/users/me/events/')['events']
-        return list_events
-
+        list_events = []
+        # user_logged = True
+        try:
+            social = self.request.user.social_auth.all()[0]
+            token = social.access_token
+            eventbrite = Eventbrite(token)
+            list_events = eventbrite.get('/users/me/events/')['events']
+            return list_events
+        except:
+            # user_logged = False
+            return list_events
+            
     def get_context_data(self):
         content_data = super().get_context_data()
         content_data['list_events'] = self.get_events()
